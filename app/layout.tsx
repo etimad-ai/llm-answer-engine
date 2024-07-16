@@ -17,8 +17,8 @@ const meta = {
 export const metadata: Metadata = {
   ...meta,
   title: {
-    default: 'answer website',
-    template: `%s - answer website`,
+    default: 'Doff aI',
+    template: `%s - Doff aI`,
   },
   icons: {
     icon: '/favicon.ico',
