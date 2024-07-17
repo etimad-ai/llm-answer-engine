@@ -366,9 +366,10 @@ export default function Page() {
         </div>
       )}
       <div className={`px-2 fixed inset-x-0 bottom-0 w-full bg-gradient-to-b duration-300 ease-in-out animate-in dark:from-gray-900/10 dark:from-10% peer-[[data-state=open]]:group-[]:lg:pl-[250px] peer-[[data-state=open]]:group-[]:xl:pl-[300px]] mb-4 bring-to-front`}>
-        <div className="mx-auto max-w-xl sm:px-4 ">
+        <div className="mx-auto max-w-xl sm:px-4">
+        {messages.length === 0 && (<img className="mx-auto w-20 md:w-32 lg:w-36 h-auto"  src="logo.png" alt="Description of the image" />)}
           {messages.length === 0 && !inputValue && (
-            <InitialQueries questions={['What is Saudi Arabia vision 2030?', 'How is NVIDIA\'s stock doing these days?', 'Where can I get the best Pizza in Riyadh?', 'What is NLP?']} handleFollowUpClick={handleFollowUpClick} />
+            <InitialQueries questions={['What is Saudi Arabia vision 2030?', 'How is NVIDIA\'s stock doing these days?', 'Where can I get the best Pizza in Riyadh?', 'Tourism in Saudi Arabia?']} handleFollowUpClick={handleFollowUpClick} />
           )}
           {mentionQuery && (
             <div className="">

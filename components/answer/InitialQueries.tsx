@@ -13,17 +13,14 @@ const InitialQueries = ({ questions, handleFollowUpClick }: InitialQueriesProps)
   
   return (
     <div className="mb-5">
-      <ul className="mt-2 space-y-4">
+      <ul className="mt-2 grid grid-cols-2 gap-4">
         {questions.map((question, index) => (
           <li
             key={index}
             className="flex items-center justify-center cursor-pointer dark:bg-slate-800 bg-white shadow-lg rounded-lg p-4"
             onClick={() => handleQuestionClick(question)}
           >
-            <span role="img" aria-label="link" className="mr-2 dark:text-white text-black">
-              <IconPlus />
-            </span>
-            <p className="dark:text-white text-center text-md sm:text-lg font-semibold">{question}</p>
+            <p className="dark:text-white text-center text-md">{question}</p>
           </li>
         ))}
       </ul>

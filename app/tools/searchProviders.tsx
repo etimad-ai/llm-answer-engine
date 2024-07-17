@@ -10,6 +10,8 @@ export async function getSearchResults(userMessage: string): Promise<any> {
             return serperSearch(userMessage);
         case "google":
             return googleSearch(userMessage);
+        case "exa":
+            return exaSearch(userMessage);
         default:
             return Promise.reject(new Error(`Unsupported search provider: ${config.searchProvider}`));
     }
@@ -91,6 +93,47 @@ export async function serperSearch(message: string, numberOfPagesToScan = config
         const final = responseData.organic.map((result: any): SearchResult => ({
             title: result.title,
             link: result.link,
+            favicon: result.favicons?.[0] || ''
+        }));
+        return final
+    } catch (error) {
+        console.error('Error fetching search results:', error);
+        throw error;
+    }
+}
+
+
+export async function exaSearch(message: string, numberOfPagesToScan = config.numberOfPagesToScan): Promise<SearchResult[]> {
+    const url = 'https://api.exa.ai/search';
+    const data = JSON.stringify({
+        "query": message,
+        "type": "neural",
+        "useAutoprompt": true,
+        "numResults": 10,
+        "contents": {
+          "text": true
+        }
+    });
+    const requestOptions: RequestInit = {
+        method: 'POST',
+        headers: {
+            'X-API-KEY': process.env.EXA_API_KEY as string,
+            'Content-Type': 'application/json'
+        },
+        body: data
+    };
+    try {
+        const response = await fetch(url, requestOptions);
+        if (!response.ok) {
+            throw new Error(`Network response was not ok. Status: ${response.status}`);
+        }
+        const responseData = await response.json();
+        if (!responseData.results) {
+            throw new Error('Invalid API response format');
+        }
+        const final = responseData.results.map((result: any): SearchResult => ({
+            title: result.title,
+            link: result.url,
             favicon: result.favicons?.[0] || ''
         }));
         return final
